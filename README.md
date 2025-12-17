@@ -7,11 +7,14 @@ Aegis is a small Python project for parsing security event logs, scoring events 
 - **Output:** A report written to [reports/report.md](reports/report.md).
 
 **Prerequisites**
-- **Python:** 3.10 or newer
-- **Optional API key:** Set `ABUSEIPDB_API_KEY` to enable AbuseIPDB enrichment.
+- Python 3.10 or newer
+- Recommended: Create a virtual environment
+- Dependencies: listed in `requirements.txt` (install with `pip install -r requirements.txt`)
 
 **Run**
-- From the project root run:
+- Ensure you are in the project root
+- Place your JSON log file at `data/events.log`
+- Execute:
 
 ```bash
 python -m agent.agent
@@ -27,18 +30,27 @@ python -m agent.agent
 - [agent/risk_engine.py](agent/risk_engine.py): scoring, brute-force detection, and enrichment integration.
 - [agent/reporter.py](agent/reporter.py): writes the Markdown triage report.
 - [agent/config.py](agent/config.py): tuning constants and thresholds.
+- [agent/enrichment.py](agent/enrichment.py): enriches event scoring with data from AbuseIPDB
 
 **How it works (brief)**
 - The parser reads `data/events.log` (one JSON event per line).
 - The risk engine assigns scores using configured weights, detects brute-force windows, and marks off-hours activity.
-- If configured, IP reputation enrichment updates scores and reasons.
+- If the AbuseIPDB API is configured, IP reputation enrichment updates scores and reasons.
 - The reporter outputs counts, the top risky events, and suggested actions.
 
 **Example output**
-- The generated report includes a summary, the top 3 highest-risk events, and categorized event sections with suggested actions: see [reports/report.md](reports/report.md).
+- The example generated report includes a summary, the top 3 highest-risk events, and categorized event sections with suggested actions: see [reports/report.md](reports/report.md).
+
+**Sample report snippet**
+
+```bash
+- Timestamp: 2025-12-16T08:12:34Z
+  - Event Type: failed_login
+  - Source IP: 185.231.45.12
+  - Risk Score: 80
+  - Reasons: Failed login attempt, Brute-force login pattern detected
+  - Suggested Action: Investigate immediately and consider blocking source IP
+```
 
 **Contributing**
 - Improvements and bugfixes are welcome — open a PR with tests or a short description of the change.
-
-**License**
-- MIT-style; add your preferred license file if required.
