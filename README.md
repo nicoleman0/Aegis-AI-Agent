@@ -1,5 +1,8 @@
 # Aegis: Security Event Triage
 
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 Aegis is a small Python project for parsing security event logs, scoring events for risk, optionally enriching with threat intelligence, and generating a triage report.
 
 **Quick Overview**
