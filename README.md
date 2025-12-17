@@ -1,4 +1,4 @@
-# Aegis — Security Event Triage
+# Aegis: Security Event Triage
 
 Aegis is a small Python project for parsing security event logs, scoring events for risk, optionally enriching with threat intelligence, and generating a triage report.
 
